@@ -1,1 +1,1 @@
-web: gunicorn up_play.wsgi
+web: gunicorn up_play:app
