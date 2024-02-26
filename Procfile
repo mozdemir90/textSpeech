@@ -1,0 +1,1 @@
+web: gunicorn up_play:app

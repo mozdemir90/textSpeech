@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <h2>File Upload</h2>
+    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="file-input" accept=".txt, .pdf">
+        <button type="button" onclick="uploadFile()">Upload</button>
+    </form>
+    <div id="response"></div>
+
+    <audio controls id="audio-player">
+        <!-- Başlangıçta ses dosyası olmadığı için controls etiketi ile kullanıcının bir ses dosyası seçmesine izin veriyoruz -->
+    </audio>
+
+    <script>
+        function uploadFile() {
+            var formData = new FormData(document.getElementById('upload-form'));
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('response').innerHTML = data;
+                
+                // Ses dosyasının URL'sini alıp audio etiketinin src özelliğine atıyoruz
+                var audioPlayer = document.getElementById('audio-player');
+                audioPlayer.src = `/static/${data}`;  // data, Flask tarafından döndürülen ses dosyasının adını içerir
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
