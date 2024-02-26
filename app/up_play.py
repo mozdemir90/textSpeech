@@ -58,8 +58,3 @@ def upload():
         return output_audio_file  # Sadece ses dosyasının adını döndürüyoruz
 
     return "Dosya yüklenemedi."
-
-if __name__ == "__main__":
-    if not os.path.exists(app.config['UPLOAD_FOLDER']):
-        os.makedirs(app.config['UPLOAD_FOLDER'])
-    app.run(debug=True,use_reloader=False, port=5001)
